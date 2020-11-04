@@ -8,6 +8,7 @@ import (
 	"context"
 	v1 "github.com/myxy99/reminder/internal/reminder-apisvr/api/v1"
 	"github.com/myxy99/reminder/internal/reminder-apisvr/config"
+	"github.com/myxy99/reminder/internal/reminder-apisvr/models"
 	myValidator "github.com/myxy99/reminder/internal/reminder-apisvr/validator"
 	"github.com/myxy99/reminder/pkg/client/database"
 	"github.com/myxy99/reminder/pkg/validator"
@@ -61,7 +62,8 @@ func (s *WebServer) Run(stopCh <-chan struct{}) (err error) {
 
 func (s *WebServer) migration() {
 	s.DB.DB().AutoMigrate(
-		//new(models.Auth),
+		new(models.User),
+		new(models.Time),
 	)
 }
 

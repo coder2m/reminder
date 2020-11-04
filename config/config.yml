@@ -1,3 +1,10 @@
 server:
   addr: 0.0.0.0:12345
   locale: zh
+database:
+  host: 127.0.0.1
+  username: root
+  password: root
+  dbName: reminder
+  type: mysql
+  debug: true

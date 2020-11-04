@@ -9,8 +9,8 @@ import (
 )
 
 var RegisterValidation = map[string]*va.Register{
-	"myCheck": {
-		myValidationFunc,
-		"{0}验证不通过",
-	},
+	//"myCheck": {
+	//	myValidationFunc,
+	//	"{0}验证不通过",
+	//},
 }
