@@ -21,8 +21,8 @@ type timeRepository struct {
 }
 
 // ((pageInfo.Page-1)*pageInfo.PageSize, pageInfo.PageSize)
-func (t *timeRepository) GetByUserId(userId uint, start int, size int) (users []*models.Time,total int, err error) {
-	err = t.db.Model(&models.Time{}).Where("user_id=?", userId).Limit(size).Offset(start).Find(&users).Error
+func (t *timeRepository) GetByUserId(userId uint, start int, size int) (times []*models.Time, total int, err error) {
+	err = t.db.Model(&models.Time{}).Where("user_id=?", userId).Limit(size).Offset(start).Find(&times).Error
 	err = t.db.Model(&models.Time{}).Count(&total).Error
 	return
 }
@@ -38,6 +38,16 @@ func (t *timeRepository) Update(time *models.Time) (err error) {
 }
 
 func (t *timeRepository) Del(id int) (err error) {
-	err = t.db.Delete(&models.User{}, id).Error
+	err = t.db.Delete(&models.Time{}, id).Error
+	return
+}
+
+func (t *timeRepository) GetByTime(status int, month int, day int) (times []*models.Time, err error) {
+	err = t.db.Model(&models.Time{}).
+		Where("status=?", status).
+		Where("month=?", month).
+		Where("day=?", day).
+		Preload("User").
+		Find(&times).Error
 	return
 }

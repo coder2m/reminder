@@ -57,7 +57,7 @@ func NewRabbitMQSimple(queueName string, options *Options) (rabbitmq *RabbitMQ, 
 }
 
 //直接模式队列生产
-func (r *RabbitMQ) PublishSimple(message string) (err error) {
+func (r *RabbitMQ) PublishSimple(message []byte) (err error) {
 	//1.申请队列，如果队列不存在会自动创建，存在则跳过创建
 	_, err = r.channel.QueueDeclare(
 		r.QueueName,
@@ -85,13 +85,13 @@ func (r *RabbitMQ) PublishSimple(message string) (err error) {
 		false,
 		amqp.Publishing{
 			ContentType: "text/plain",
-			Body:        []byte(message),
+			Body:        message,
 		})
 	return
 }
 
 //simple 模式下消费者
-func (r *RabbitMQ) ConsumeSimple() (err error) {
+func (r *RabbitMQ) ConsumeSimple(f func([]byte) error) (err error) {
 	//1.申请队列，如果队列不存在会自动创建，存在则跳过创建
 	q, err := r.channel.QueueDeclare(
 		r.QueueName,
@@ -134,11 +134,9 @@ func (r *RabbitMQ) ConsumeSimple() (err error) {
 	go func() {
 		for d := range msgs {
 			//消息逻辑处理，可以自行设计逻辑
-			log.Printf("Received a message: %s", d.Body)
-
+			_ = f(d.Body)
 		}
 	}()
-
 	log.Printf(" 退出请按 CTRL+C\n")
 	<-forever
 	return
@@ -162,7 +160,7 @@ func NewRabbitMQPubSub(exchangeName string, options *Options) (rabbitmq *RabbitM
 }
 
 //订阅模式生产
-func (r *RabbitMQ) PublishPub(message string) (err error) {
+func (r *RabbitMQ) PublishPub(message []byte) (err error) {
 	//1.尝试创建交换机
 	err = r.channel.ExchangeDeclare(
 		r.Exchange,
@@ -187,13 +185,13 @@ func (r *RabbitMQ) PublishPub(message string) (err error) {
 		false,
 		amqp.Publishing{
 			ContentType: "text/plain",
-			Body:        []byte(message),
+			Body:        message,
 		})
 	return err
 }
 
 //订阅模式消费端代码
-func (r *RabbitMQ) RecieveSub() (err error) {
+func (r *RabbitMQ) RecieveSub(f func([]byte) error) (err error) {
 	//1.试探性创建交换机
 	err = r.channel.ExchangeDeclare(
 		r.Exchange,
@@ -252,7 +250,7 @@ func (r *RabbitMQ) RecieveSub() (err error) {
 
 	go func() {
 		for d := range messges {
-			log.Printf("Received a message: %s", d.Body)
+			_ = f(d.Body)
 		}
 	}()
 
@@ -281,7 +279,7 @@ func NewRabbitMQRouting(exchangeName string, routingKey string, options *Options
 }
 
 //路由模式发送消息
-func (r *RabbitMQ) PublishRouting(message string) (err error) {
+func (r *RabbitMQ) PublishRouting(message []byte) (err error) {
 	//1.尝试创建交换机
 	err = r.channel.ExchangeDeclare(
 		r.Exchange,
@@ -307,13 +305,13 @@ func (r *RabbitMQ) PublishRouting(message string) (err error) {
 		false,
 		amqp.Publishing{
 			ContentType: "text/plain",
-			Body:        []byte(message),
+			Body:        message,
 		})
 	return
 }
 
 //路由模式接受消息
-func (r *RabbitMQ) RecieveRouting() (err error) {
+func (r *RabbitMQ) RecieveRouting(f func([]byte) error) (err error) {
 	//1.试探性创建交换机
 	err = r.channel.ExchangeDeclare(
 		r.Exchange,
@@ -365,7 +363,7 @@ func (r *RabbitMQ) RecieveRouting() (err error) {
 
 	go func() {
 		for d := range messges {
-			log.Printf("Received a message: %s", d.Body)
+			_ = f(d.Body)
 		}
 	}()
 
@@ -393,7 +391,7 @@ func NewRabbitMQTopic(exchangeName string, routingKey string, options *Options) 
 }
 
 //话题模式发送消息
-func (r *RabbitMQ) PublishTopic(message string) (err error) {
+func (r *RabbitMQ) PublishTopic(message []byte) (err error) {
 	//1.尝试创建交换机
 	err = r.channel.ExchangeDeclare(
 		r.Exchange,
@@ -419,7 +417,7 @@ func (r *RabbitMQ) PublishTopic(message string) (err error) {
 		false,
 		amqp.Publishing{
 			ContentType: "text/plain",
-			Body:        []byte(message),
+			Body:        message,
 		})
 	return
 }
@@ -428,7 +426,7 @@ func (r *RabbitMQ) PublishTopic(message string) (err error) {
 //要注意key,规则
 //其中“*”用于匹配一个单词，“#”用于匹配多个单词（可以是零个）
 //匹配 myxy99.* 表示匹配 myxy99.hello, 但是myxy99.hello.one需要用myxy99.#才能匹配到
-func (r *RabbitMQ) RecieveTopic() (err error) {
+func (r *RabbitMQ) RecieveTopic(f func([]byte) error) (err error) {
 	//1.试探性创建交换机
 	err = r.channel.ExchangeDeclare(
 		r.Exchange,
@@ -483,7 +481,7 @@ func (r *RabbitMQ) RecieveTopic() (err error) {
 
 	go func() {
 		for d := range messges {
-			log.Printf("Received a message: %s", d.Body)
+			_ = f(d.Body)
 		}
 	}()
 

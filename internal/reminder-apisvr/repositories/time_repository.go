@@ -10,5 +10,6 @@ type TimeRepository interface {
 	Add(*models.Time) error
 	Update(*models.Time) error
 	Del(int) error
-	GetByUserId(uint,int,int) ([]*models.Time,int,error)
+	GetByUserId(uint, int, int) ([]*models.Time, int, error)
+	GetByTime(int, int, int) ([]*models.Time, error)
 }

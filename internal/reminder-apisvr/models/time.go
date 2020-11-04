@@ -13,6 +13,7 @@ type Time struct {
 	Day          int
 	Message      string
 	UserId       uint
+	User         User
 	ReminderTime int `gorm:"default:1"`
 	Status       int `gorm:"default:1"`
 }
