@@ -12,7 +12,7 @@ reminder:
   Spec:
     - "* * * * *"
 rabbitMQ:
-  host: docker.myxy99.cn
+  host: 127.0.0.1
   username: admin
   password: admin
   port: 5672

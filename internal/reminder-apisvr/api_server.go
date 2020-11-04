@@ -9,8 +9,11 @@ import (
 	v1 "github.com/myxy99/reminder/internal/reminder-apisvr/api/v1"
 	"github.com/myxy99/reminder/internal/reminder-apisvr/config"
 	"github.com/myxy99/reminder/internal/reminder-apisvr/models"
+	"github.com/myxy99/reminder/internal/reminder-apisvr/server"
 	myValidator "github.com/myxy99/reminder/internal/reminder-apisvr/validator"
 	"github.com/myxy99/reminder/pkg/client/database"
+	"github.com/myxy99/reminder/pkg/client/rabbitmq"
+	"github.com/myxy99/reminder/pkg/reminder"
 	"github.com/myxy99/reminder/pkg/validator"
 	"log"
 	"net/http"
@@ -24,6 +27,10 @@ type WebServer struct {
 	Server *http.Server
 
 	Validator *validator.Validator
+
+	CronServer *reminder.CronServer
+
+	Mq *rabbitmq.RabbitMQ
 }
 
 func (s *WebServer) PrepareRun(stopCh <-chan struct{}) (err error) {
@@ -45,6 +52,14 @@ func (s *WebServer) PrepareRun(stopCh <-chan struct{}) (err error) {
 	}
 
 	s.installAPIs()
+
+	err = s.installRabbitMQ(stopCh)
+	if err != nil {
+		return
+	}
+
+	s.installReminder(stopCh)
+
 	return nil
 }
 
@@ -65,6 +80,20 @@ func (s *WebServer) migration() {
 		new(models.User),
 		new(models.Time),
 	)
+}
+
+func (s *WebServer) installReminder(stopCh <-chan struct{}) {
+	s.CronServer = reminder.NewReminderClient(s.Config.Reminder)
+	go s.CronServer.Run(stopCh, server.NewReminder(s.DB, s.Mq))
+}
+
+func (s *WebServer) installRabbitMQ(stopCh <-chan struct{}) (err error) {
+	s.Mq, err = rabbitmq.NewRabbitMQSimple("reminder", s.Config.RabbitMq)
+	go func() {
+		<-stopCh
+		s.Mq.Destory()
+	}()
+	return
 }
 
 func (s *WebServer) installAPIs() {

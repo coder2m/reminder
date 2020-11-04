@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"github.com/myxy99/reminder/internal/reminder-apisvr/config/server"
 	"github.com/myxy99/reminder/pkg/client/database"
+	"github.com/myxy99/reminder/pkg/client/rabbitmq"
+	"github.com/myxy99/reminder/pkg/reminder"
 	"github.com/spf13/viper"
 )
 
@@ -21,13 +23,17 @@ const (
 
 type Cfg struct {
 	Database *database.Options `yaml:"database"`
-	Server   *server.Options `yaml:"server"`
+	Server   *server.Options   `yaml:"server"`
+	Reminder *reminder.Options `yaml:"reminder"`
+	RabbitMq *rabbitmq.Options `yaml:"rabbitMQ"`
 }
 
 func New() *Cfg {
 	return &Cfg{
 		Database: database.NewDatabaseOptions(),
 		Server:   server.NewDefault(),
+		Reminder: reminder.NewReminderOptions(),
+		RabbitMq: rabbitmq.NewRabbitMQOptions(),
 	}
 }
 
