@@ -9,7 +9,7 @@ type Options struct {
 	Locale string `json:"locale" yaml:"locale"`
 }
 
-func NewDefault() *Options {
+func NewServerOptions() *Options {
 	return &Options{
 		Addr: "",
 		Locale:"zh",

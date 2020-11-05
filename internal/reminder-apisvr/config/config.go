@@ -7,6 +7,7 @@ package config
 import (
 	"fmt"
 	"github.com/myxy99/reminder/internal/reminder-apisvr/config/server"
+	"github.com/myxy99/reminder/internal/reminder-apisvr/config/wx"
 	"github.com/myxy99/reminder/pkg/client/database"
 	"github.com/myxy99/reminder/pkg/client/rabbitmq"
 	"github.com/myxy99/reminder/pkg/reminder"
@@ -26,14 +27,16 @@ type Cfg struct {
 	Server   *server.Options   `yaml:"server"`
 	Reminder *reminder.Options `yaml:"reminder"`
 	RabbitMq *rabbitmq.Options `yaml:"rabbitMQ"`
+	WXApp    *wx.Options       `yaml:"wxApp"`
 }
 
 func New() *Cfg {
 	return &Cfg{
 		Database: database.NewDatabaseOptions(),
-		Server:   server.NewDefault(),
+		Server:   server.NewServerOptions(),
 		Reminder: reminder.NewReminderOptions(),
 		RabbitMq: rabbitmq.NewRabbitMQOptions(),
+		WXApp:    wx.NewWXOptions(),
 	}
 }
 

@@ -20,7 +20,7 @@ func (e *Email) SendEmail(mailTo []string, subject string, body string) (err err
 	m := gomail.NewMessage()
 	m.SetHeader("From", m.FormatAddress(e.o.Username, "reminder")) //这种方式可以添加别名，即“XX官方”
 	m.SetHeader("To", mailTo...)                                   //发送给多个用户
-	m.SetHeader("Cc", m.FormatAddress(e.o.Username, "收件人"))        //抄送
+	m.SetHeader("Cc", m.FormatAddress(e.o.Username, "reminder"))   //抄送
 	m.SetHeader("Subject", subject)                                //设置邮件主题
 	m.SetBody("text/html", body)                                   //设置邮件正文
 	d := gomail.NewDialer(

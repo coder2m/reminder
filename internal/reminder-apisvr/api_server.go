@@ -44,6 +44,8 @@ func (s *WebServer) PrepareRun(stopCh <-chan struct{}) (err error) {
 		return
 	}
 
+	s.installWX()
+
 	s.installHttpServer()
 
 	err = s.installValidator()
@@ -80,6 +82,10 @@ func (s *WebServer) migration() {
 		new(models.User),
 		new(models.Time),
 	)
+}
+
+func (s *WebServer) installWX() {
+	server.NewWxAPP(s.Config.WXApp.Secret, s.Config.WXApp.AppID)
 }
 
 func (s *WebServer) installReminder(stopCh <-chan struct{}) {

@@ -6,7 +6,6 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/myxy99/reminder/pkg/client/email"
 )
 
@@ -14,10 +13,12 @@ type Server struct {
 	emailClient *email.Email
 }
 
-type Message struct {
-	To  string
-	msg string
+type Data struct {
+	Message string
+	Time    int
 }
+
+type Message map[string][]*Data
 
 func NewServer(email *email.Email) *Server {
 	return &Server{email}
@@ -29,10 +30,26 @@ func (s *Server) Send(data []byte) (err error) {
 	if err != nil {
 		return
 	}
-	err = s.emailClient.SendEmail([]string{message.To}, "提示", message.msg)
-	if err != nil {
-		fmt.Println(err.Error())
-		return
+	for k, v := range message {
+		var msgStr string
+		for _, msg := range v {
+			msgStr += "<li>" + s.typeToMsg(msg.Time) + msg.Message + "</li><br>"
+		}
+		err = s.emailClient.SendEmail([]string{k}, "reminder", msgStr)
 	}
+
 	return err
+}
+
+func (s *Server) typeToMsg(timeType int) string {
+	switch timeType {
+	case 1:
+		return "一天后："
+	case 3:
+		return "三天后："
+	case 5:
+		return "五天后："
+	default:
+		return ""
+	}
 }

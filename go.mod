@@ -11,6 +11,7 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 	github.com/lib/pq v1.1.1
 	github.com/mattn/go-sqlite3 v1.14.0
+	github.com/medivhzhan/weapp/v2 v2.2.4
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/spf13/viper v1.7.1
 	github.com/streadway/amqp v1.0.0

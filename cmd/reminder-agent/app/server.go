@@ -14,7 +14,7 @@ func Run(stopCh <-chan struct{}) error {
 	if err != nil {
 		return err
 	}
-	return server.Run()
+	return server.Run(stopCh)
 }
 
 func NewServer() *reminder_agent.Server {

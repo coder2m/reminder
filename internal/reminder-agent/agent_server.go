@@ -10,6 +10,7 @@ import (
 	"github.com/myxy99/reminder/internal/reminder-agent/server"
 	"github.com/myxy99/reminder/pkg/client/email"
 	"github.com/myxy99/reminder/pkg/client/rabbitmq"
+	"log"
 )
 
 type Server struct {
@@ -37,11 +38,11 @@ func (s *Server) PrepareRun(stopCh <-chan struct{}) (err error) {
 	return nil
 }
 
-func (s *Server) Run() (err error) {
+func (s *Server) Run(stopCh <-chan struct{}) (err error) {
 	_, cancel := context.WithCancel(context.Background())
 	defer cancel()
-
-	_ = s.Mq.ConsumeSimple(server.NewServer(s.Email).Send)
+	log.Printf("running ~~ ")
+	err = s.Mq.ConsumeSimple(server.NewServer(s.Email).Send, stopCh)
 
 	return err
 }

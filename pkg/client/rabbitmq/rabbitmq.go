@@ -7,7 +7,6 @@ package rabbitmq
 import (
 	"fmt"
 	"github.com/streadway/amqp"
-	"log"
 )
 
 //连接信息
@@ -91,7 +90,7 @@ func (r *RabbitMQ) PublishSimple(message []byte) (err error) {
 }
 
 //simple 模式下消费者
-func (r *RabbitMQ) ConsumeSimple(f func([]byte) error) (err error) {
+func (r *RabbitMQ) ConsumeSimple(f func([]byte) error, stopCh <-chan struct{}) (err error) {
 	//1.申请队列，如果队列不存在会自动创建，存在则跳过创建
 	q, err := r.channel.QueueDeclare(
 		r.QueueName,
@@ -129,7 +128,6 @@ func (r *RabbitMQ) ConsumeSimple(f func([]byte) error) (err error) {
 		return
 	}
 
-	forever := make(chan bool)
 	//启用协程处理消息
 	go func() {
 		for d := range msgs {
@@ -137,8 +135,7 @@ func (r *RabbitMQ) ConsumeSimple(f func([]byte) error) (err error) {
 			_ = f(d.Body)
 		}
 	}()
-	log.Printf(" 退出请按 CTRL+C\n")
-	<-forever
+	<-stopCh
 	return
 }
 
@@ -191,7 +188,7 @@ func (r *RabbitMQ) PublishPub(message []byte) (err error) {
 }
 
 //订阅模式消费端代码
-func (r *RabbitMQ) RecieveSub(f func([]byte) error) (err error) {
+func (r *RabbitMQ) RecieveSub(f func([]byte) error, stopCh <-chan struct{}) (err error) {
 	//1.试探性创建交换机
 	err = r.channel.ExchangeDeclare(
 		r.Exchange,
@@ -246,16 +243,13 @@ func (r *RabbitMQ) RecieveSub(f func([]byte) error) (err error) {
 		return err
 	}
 
-	forever := make(chan bool)
-
 	go func() {
 		for d := range messges {
 			_ = f(d.Body)
 		}
 	}()
 
-	fmt.Println("退出请按 CTRL+C\n")
-	<-forever
+	<-stopCh
 
 	return err
 }
@@ -311,7 +305,7 @@ func (r *RabbitMQ) PublishRouting(message []byte) (err error) {
 }
 
 //路由模式接受消息
-func (r *RabbitMQ) RecieveRouting(f func([]byte) error) (err error) {
+func (r *RabbitMQ) RecieveRouting(f func([]byte) error, stopCh <-chan struct{}) (err error) {
 	//1.试探性创建交换机
 	err = r.channel.ExchangeDeclare(
 		r.Exchange,
@@ -359,16 +353,14 @@ func (r *RabbitMQ) RecieveRouting(f func([]byte) error) (err error) {
 		nil,
 	)
 
-	forever := make(chan bool)
-
 	go func() {
 		for d := range messges {
 			_ = f(d.Body)
 		}
 	}()
 
-	fmt.Println("退出请按 CTRL+C\n")
-	<-forever
+	<-stopCh
+
 	return
 }
 
@@ -426,7 +418,7 @@ func (r *RabbitMQ) PublishTopic(message []byte) (err error) {
 //要注意key,规则
 //其中“*”用于匹配一个单词，“#”用于匹配多个单词（可以是零个）
 //匹配 myxy99.* 表示匹配 myxy99.hello, 但是myxy99.hello.one需要用myxy99.#才能匹配到
-func (r *RabbitMQ) RecieveTopic(f func([]byte) error) (err error) {
+func (r *RabbitMQ) RecieveTopic(f func([]byte) error, stopCh <-chan struct{}) (err error) {
 	//1.试探性创建交换机
 	err = r.channel.ExchangeDeclare(
 		r.Exchange,
@@ -477,15 +469,11 @@ func (r *RabbitMQ) RecieveTopic(f func([]byte) error) (err error) {
 		return
 	}
 
-	forever := make(chan bool)
-
 	go func() {
 		for d := range messges {
 			_ = f(d.Body)
 		}
 	}()
-
-	fmt.Println("退出请按 CTRL+C\n")
-	<-forever
+	<-stopCh
 	return
 }

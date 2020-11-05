@@ -13,9 +13,9 @@ type Options struct {
 
 func NewEmailOptions() *Options {
 	return &Options{
-		Host:     "127.0.0.1",
-		Port:     5672,
-		Username: "root",
-		Password: "root",
+		Host:     "smtp.yeah.net",
+		Port:     465,
+		Username: "yangzzzzzz@yeah.net",
+		Password: "your-password",
 	}
 }
