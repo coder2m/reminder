@@ -8,12 +8,11 @@ import "github.com/jinzhu/gorm"
 
 type Time struct {
 	*gorm.Model
-	TimeType     int `gorm:"default:1"` //1为阳 2为农
-	Month        int
-	Day          int
-	Message      string
-	UserId       uint
-	User         User
-	ReminderTime int `gorm:"default:1"` //1为提前一天提醒，2为提前1天和3天提醒，3为提前1，3，5都提醒
-	Status       int `gorm:"default:1"`
+	RemindId  uint // 提醒id
+	Remind    Remind
+	UserId    uint //用户id
+	User      User
+	TimeMonth int // 确定提醒的月
+	TimeDay   int // 确定提醒的日
+	TimeNum   int `gorm:"default:1"` //这一个是提前多久提醒的 默认是提前一天
 }

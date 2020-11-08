@@ -20,19 +20,27 @@ type userRepository struct {
 	db *gorm.DB
 }
 
+func (u *userRepository) GetOrCreateByOpenId(openId string) (user *models.User, err error) {
+	user = &models.User{
+		Openid: openId,
+	}
+	err = u.db.Model(&models.User{}).
+		Where("openid=?", openId).
+		FirstOrCreate(user).Error
+	return
+}
+
 func (u *userRepository) Add(user *models.User) (err error) {
-	err=u.db.Create(user).Error
+	err = u.db.Create(user).Error
 	return
 }
 
 func (u *userRepository) Update(user *models.User) (err error) {
-	err= u.db.Model(&models.User{}).Update(user).Error
+	err = u.db.Model(&models.User{}).Update(user).Error
 	return
 }
 
 func (u *userRepository) Del(id int) (err error) {
-	err = u.db.Delete(&models.User{},id).Error
+	err = u.db.Delete(&models.User{}, id).Error
 	return
 }
-
-

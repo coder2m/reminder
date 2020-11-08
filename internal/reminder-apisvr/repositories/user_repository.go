@@ -10,4 +10,5 @@ type UserRepository interface {
 	Add(*models.User) error
 	Update(*models.User) error
 	Del(id int) error
+	GetOrCreateByOpenId(openId string) (user *models.User,err error)
 }

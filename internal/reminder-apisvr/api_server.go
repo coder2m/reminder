@@ -81,6 +81,7 @@ func (s *WebServer) migration() {
 	s.DB.DB().AutoMigrate(
 		new(models.User),
 		new(models.Time),
+		new(models.Remind),
 	)
 }
 

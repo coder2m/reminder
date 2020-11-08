@@ -10,8 +10,8 @@ import (
 )
 
 type WxApp struct {
-	Secret string
-	AppId  string
+	secret string
+	appId  string
 }
 
 var wx *WxApp
@@ -21,7 +21,7 @@ func NewWxAPP(Secret, AppId string) {
 }
 
 func (w *WxApp) Login(code string) (OpenID, SessionKey, UnionID string, err error) {
-	res, err := weapp.Login(w.AppId, w.Secret, code)
+	res, err := weapp.Login(w.appId, w.secret, code)
 	if err != nil {
 		return
 	}

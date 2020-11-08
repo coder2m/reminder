@@ -6,6 +6,7 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/myxy99/reminder/pkg/client/email"
 )
 
@@ -15,7 +16,7 @@ type Server struct {
 
 type Data struct {
 	Message string
-	Time    int
+	TimeNum int
 }
 
 type Message map[string][]*Data
@@ -33,23 +34,10 @@ func (s *Server) Send(data []byte) (err error) {
 	for k, v := range message {
 		var msgStr string
 		for _, msg := range v {
-			msgStr += "<li>" + s.typeToMsg(msg.Time) + msg.Message + "</li><br>"
+			msgStr += fmt.Sprintf("<li>%d天后:%s</li><br>", msg.TimeNum, msg.Message)
 		}
 		err = s.emailClient.SendEmail([]string{k}, "reminder", msgStr)
 	}
 
 	return err
-}
-
-func (s *Server) typeToMsg(timeType int) string {
-	switch timeType {
-	case 1:
-		return "一天后："
-	case 3:
-		return "三天后："
-	case 5:
-		return "五天后："
-	default:
-		return ""
-	}
 }

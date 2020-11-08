@@ -11,5 +11,6 @@ type TimeRepository interface {
 	Update(*models.Time) error
 	Del(int) error
 	GetByUserId(userId uint, start int, size int) ([]*models.Time, int, error)
-	GetByTime(timeType int, month int, day int, status int, reminderTime int) ([]*models.Time, error)
+	//GetByTime(timeType int, month int, day int, status int, reminderTime int) ([]*models.Time, error)
+	GetByTime(month int, day int) ([]*models.Time, error)
 }
