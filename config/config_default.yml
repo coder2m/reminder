@@ -10,10 +10,28 @@ database:
   debug: true
 reminder:
   Spec:
-    - "* * * * *"
+    - "@daily"
 rabbitMQ:
-  host: 127.0.0.1
-  username: admin
-  password: admin
+  host:
+  username:
+  password:
   port: 5672
   name: reminderMQ
+email:
+  host: smtp.yeah.net
+  username: yangzzzzzz@yeah.net
+  password:
+  port: 465
+wxApp:
+  appId:
+  secret:
+log:
+  level: info
+  development: false
+  httpServer:
+    open: true
+    addr: 0.0.0.0:9000
+  outputPaths:
+    - "log.log"
+  errorOutputPaths:
+    - "err.log"
