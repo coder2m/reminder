@@ -6,6 +6,7 @@ package reminder_apisvr
 
 import (
 	"context"
+	fmt "fmt"
 	v1 "github.com/myxy99/reminder/internal/reminder-apisvr/api/v1"
 	"github.com/myxy99/reminder/internal/reminder-apisvr/config"
 	"github.com/myxy99/reminder/internal/reminder-apisvr/models"
@@ -13,9 +14,9 @@ import (
 	myValidator "github.com/myxy99/reminder/internal/reminder-apisvr/validator"
 	"github.com/myxy99/reminder/pkg/client/database"
 	"github.com/myxy99/reminder/pkg/client/rabbitmq"
+	"github.com/myxy99/reminder/pkg/log"
 	"github.com/myxy99/reminder/pkg/reminder"
 	"github.com/myxy99/reminder/pkg/validator"
-	"log"
 	"net/http"
 )
 
@@ -35,6 +36,11 @@ type WebServer struct {
 
 func (s *WebServer) PrepareRun(stopCh <-chan struct{}) (err error) {
 	err = s.installCfg()
+	if err != nil {
+		return
+	}
+
+	err = s.installLog()
 	if err != nil {
 		return
 	}
@@ -72,7 +78,7 @@ func (s *WebServer) Run(stopCh <-chan struct{}) (err error) {
 		<-stopCh
 		_ = s.Server.Shutdown(ctx)
 	}()
-	log.Printf("Start listening on %s", s.Server.Addr)
+	log.Info(fmt.Sprintf("Start listening on %s", s.Server.Addr))
 	err = s.Server.ListenAndServe()
 	return err
 }
@@ -107,6 +113,10 @@ func (s *WebServer) installAPIs() {
 	s.Server.Handler = v1.InitRouter(s.DB, s.Validator)
 }
 
+func (s *WebServer) installLog() error {
+	return log.NewLog(s.Config.Log)
+}
+
 func (s *WebServer) installHttpServer() {
 	s.Server.Addr = s.Config.Server.Addr
 }
@@ -118,6 +128,9 @@ func (s *WebServer) installValidator() error {
 
 func (s *WebServer) installDatabase(stopCh <-chan struct{}) (err error) {
 	s.DB, err = database.NewDatabaseClient(s.Config.Database, stopCh)
+	if err != nil {
+		return
+	}
 	s.migration()
 	return
 }

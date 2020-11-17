@@ -6,7 +6,6 @@ package database
 
 import (
 	"github.com/jinzhu/gorm"
-	"log"
 )
 
 type Client struct {
@@ -17,14 +16,11 @@ func NewDatabaseClient(o *Options, stopCh <-chan struct{}) (c *Client, err error
 	db, err := gorm.Open(o.Type, o.GetDSN())
 
 	if err != nil {
-		log.Printf("unable to connect to database", err)
 		return nil, err
 	}
 	go func() {
 		<-stopCh
-		if err := db.Close(); err != nil {
-			log.Printf("error happened during closing database connection", err)
-		}
+		_ = db.Close()
 	}()
 
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
@@ -44,7 +40,6 @@ func NewDatabaseClient(o *Options, stopCh <-chan struct{}) (c *Client, err error
 
 func (c *Client) DB() *gorm.DB {
 	if c == nil {
-		log.Print("database client is nil")
 		return nil
 	}
 	return c.db

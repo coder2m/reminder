@@ -5,16 +5,16 @@
 package main
 
 import (
+	"fmt"
 	"github.com/myxy99/reminder/cmd/reminder-svr/app"
 	"github.com/myxy99/reminder/pkg/signals"
-	"log"
 	"os"
 )
 
 func main() {
 	err := app.Run(signals.SetupSignalHandler())
 	if err != nil {
-		log.Println(err.Error())
+		fmt.Println(err.Error())
 		os.Exit(1)
 	}
 }

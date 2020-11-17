@@ -10,6 +10,7 @@ import (
 	"github.com/myxy99/reminder/internal/reminder-apisvr/config/wx"
 	"github.com/myxy99/reminder/pkg/client/database"
 	"github.com/myxy99/reminder/pkg/client/rabbitmq"
+	"github.com/myxy99/reminder/pkg/log"
 	"github.com/myxy99/reminder/pkg/reminder"
 	"github.com/spf13/viper"
 )
@@ -28,6 +29,7 @@ type Cfg struct {
 	Reminder *reminder.Options `yaml:"reminder"`
 	RabbitMq *rabbitmq.Options `yaml:"rabbitMQ"`
 	WXApp    *wx.Options       `yaml:"wxApp"`
+	Log      *log.Options      `yaml:"log"`
 }
 
 func New() *Cfg {
@@ -37,6 +39,7 @@ func New() *Cfg {
 		Reminder: reminder.NewReminderOptions(),
 		RabbitMq: rabbitmq.NewRabbitMQOptions(),
 		WXApp:    wx.NewWXOptions(),
+		Log:      log.NewLogOptions(),
 	}
 }
 
