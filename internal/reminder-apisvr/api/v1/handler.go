@@ -23,8 +23,21 @@ type ReminderHandler struct {
 }
 
 //获取用户的提醒 分页
-func (rh *ReminderHandler) GetUserReminder() {
-
+func (rh *ReminderHandler) GetUserReminder(ctx *gin.Context) {
+	var getUserReminderService _map.GetUserReminder
+	if err := ctx.ShouldBind(&getUserReminderService); err != nil {
+		R.Response(ctx,
+			http.StatusUnprocessableEntity,
+			R.MSG_422, rh.validator.GetParamError(err),
+			http.StatusUnprocessableEntity)
+		return
+	}
+	if data, err := rh.webServer.GetUserReminder(&getUserReminderService); err == nil {
+		R.Ok(ctx, R.MSG_OK, data)
+	} else {
+		R.Error(ctx, err.Error(), nil)
+	}
+	return
 }
 
 //

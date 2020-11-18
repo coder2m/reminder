@@ -12,3 +12,9 @@ type SetUserService struct {
 	OpenId string `json:"open_id"`
 	Email  string `form:"email" json:"email" binding:"required,email" label:"邮箱"`
 }
+
+type GetUserReminder struct {
+	OpenId   string `json:"open_id"`
+	PageSize int    `json:"size" form:"size" binding:"required,numeric"`
+	Page     int    `json:"page" form:"page" binding:"required,numeric"`
+}

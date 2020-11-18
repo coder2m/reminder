@@ -20,14 +20,23 @@ func NewRemindRepository(db *gorm.DB) repositories.RemindRepository {
 	}
 }
 
-func (r remindRepository) Add(remind *models.Remind) error {
+func (r *remindRepository) GetByUserId(userId uint, start int, size int) (reminds []*models.Remind, total int, err error) {
+	err = r.db.Model(&models.Remind{}).
+		Where("user_id=?", userId).
+		Limit(size).Offset(start).
+		Find(&reminds).Error
+	err = r.db.Model(&models.Remind{}).Count(&total).Error
+	return
+}
+
+func (r *remindRepository) Add(remind *models.Remind) error {
 	panic("implement me")
 }
 
-func (r remindRepository) Update(remind *models.Remind) error {
+func (r *remindRepository) Update(remind *models.Remind) error {
 	panic("implement me")
 }
 
-func (r remindRepository) Del(id int) error {
+func (r *remindRepository) Del(id int) error {
 	panic("implement me")
 }

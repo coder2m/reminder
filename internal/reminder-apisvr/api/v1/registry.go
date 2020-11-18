@@ -14,9 +14,9 @@ import (
 )
 
 func InitRouter(db *database.Client, validator *validator.Validator) *gin.Engine {
-
-	userRepository := impl.NewUserRepository(db.DB())
-	service := server.NewWebService(userRepository)
+	service := server.NewWebService(
+		impl.NewUserRepository(db.DB()),
+		impl.NewRemindRepository(db.DB()))
 	handler := NewUserHandler(service, validator)
 
 	app := gin.Default()
