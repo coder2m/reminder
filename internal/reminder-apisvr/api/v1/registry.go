@@ -11,23 +11,27 @@ import (
 	"github.com/myxy99/reminder/pkg/client/database"
 	R "github.com/myxy99/reminder/pkg/response"
 	"github.com/myxy99/reminder/pkg/validator"
+	"net/http"
 )
 
 func InitRouter(db *database.Client, validator *validator.Validator) *gin.Engine {
 	service := server.NewWebService(
 		impl.NewUserRepository(db.DB()),
 		impl.NewRemindRepository(db.DB()))
-	handler := NewUserHandler(service, validator)
+	userHandler := NewUserHandler(service, validator)
+	reminderHandler := NewReminderHandler(service, validator)
 
 	app := gin.Default()
+	app.NoRoute(func(context *gin.Context) {
+		R.Response(context, http.StatusNotFound, "Not Found", nil, http.StatusNotFound)
+		return
+	})
 	api := app.Group("/api/v1")
 	{
-		api.GET("/", func(context *gin.Context) {
-			R.Ok(context, R.MSG_OK, nil)
-		})
+		api.POST("/login", userHandler.Login)
+		api.PUT("/user", Auth(), userHandler.SetUser)
 
-		api.POST("/login", handler.Login)
-		api.PUT("/user", Auth(), handler.SetUser)
+		api.GET("/reminder", Auth(), reminderHandler.GetUserReminder)
 	}
 	return app
 }

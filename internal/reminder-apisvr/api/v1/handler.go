@@ -32,6 +32,12 @@ func (rh *ReminderHandler) GetUserReminder(ctx *gin.Context) {
 			http.StatusUnprocessableEntity)
 		return
 	}
+	openid, ok := ctx.Get("openid")
+	if !ok {
+		R.Error(ctx, R.MSG_ERR, nil)
+		return
+	}
+	getUserReminderService.OpenId = openid.(string)
 	if data, err := rh.webServer.GetUserReminder(&getUserReminderService); err == nil {
 		R.Ok(ctx, R.MSG_OK, data)
 	} else {
