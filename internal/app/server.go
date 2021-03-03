@@ -12,13 +12,9 @@ import (
 	"github.com/coder2m/component/xcfg/datasource/manager"
 	"github.com/coder2m/component/xgovern"
 	"github.com/coder2m/component/xinvoker"
-	xgorm "github.com/coder2m/component/xinvoker/gorm"
 	"github.com/coder2m/component/xmonitor"
 	"github.com/coder2m/reminder/internal/app/api/v1/registry"
 	myValidator "github.com/coder2m/reminder/internal/app/validator"
-	"github.com/coder2m/reminder/pkg/rpc"
-	"google.golang.org/grpc"
-	"net"
 	"net/http"
 	"sync"
 )
@@ -54,8 +50,8 @@ func (s *Server) Run(stopCh <-chan struct{}) (err error) {
 		return s.Server.Shutdown(ctx)
 	})
 	xconsole.Greenf("Start listening on:", s.Server.Addr)
-	if err = s.Server.ListenAndServe(); err != http.ErrServerClosed {
-		return err
+	if err = s.Server.ListenAndServe(); err == http.ErrServerClosed {
+		return nil
 	}
 	s.Wait()
 	return err
@@ -86,7 +82,7 @@ func (s *Server) invoker() {
 		return xinvoker.Close()
 	})
 	xinvoker.Register(
-		xgorm.Register("mysql"),
+		//xgorm.Register("mysql"),
 		//xredis.Register("redis"),
 	)
 	s.err = xinvoker.Init()
@@ -120,36 +116,4 @@ func (s *Server) govern() {
 	}
 	xmonitor.Run()
 	go xgovern.Run()
-}
-
-func (s *Server) rpc() {
-	if s.err != nil {
-		return
-	}
-	var (
-		rpcCfg *xrpc.Config
-		lis    net.Listener
-	)
-	rpcCfg = xcfg.UnmarshalWithExpect("rpc", xrpc.DefaultConfig()).(*xrpc.Config)
-
-	s.err = xrpc.DefaultRegistryEtcd(rpcCfg)
-	if s.err != nil {
-		return
-	}
-
-	lis, s.err = net.Listen("tcp", rpcCfg.Addr())
-	if s.err != nil {
-		return
-	}
-
-	serve := grpc.NewServer(xrpc.DefaultOption(rpcCfg)...)
-	xdefer.Register(func() error {
-		serve.Stop()
-		xconsole.Red("grpc server shutdown success ")
-		return nil
-	})
-	go func() {
-		s.err = serve.Serve(lis)
-	}()
-	xconsole.Greenf("grpc server start up success:", rpcCfg.Addr())
 }

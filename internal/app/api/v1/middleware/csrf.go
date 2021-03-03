@@ -2,10 +2,10 @@ package middleware
 
 import (
 	"crypto/subtle"
-	R "github.com/coder2m/app/pkg/response"
+	R "github.com/coder2m/reminder/pkg/response"
 
-	"github.com/coder2m/app/pkg/constant"
-	xrand "github.com/coder2m/app/pkg/rand"
+	"github.com/coder2m/reminder/pkg/constant"
+	xrand "github.com/coder2m/reminder/pkg/rand"
 	"github.com/gin-gonic/gin"
 )
 
