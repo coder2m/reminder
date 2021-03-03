@@ -6,9 +6,9 @@
 package recaptcha
 
 import (
-	"github.com/go-resty/resty/v2"
 	"github.com/coder2m/component/pkg/xjson"
 	"github.com/coder2m/component/xlog"
+	"github.com/go-resty/resty/v2"
 	"io"
 	"strings"
 	"time"
