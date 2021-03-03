@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8d05b09d-2da1-4b00-a3a3-df0bd010e9d3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reminder-svr/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/reminder-agent/app/server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/reminder-agent/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/reminder-svr/app/server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/reminder-svr/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config_default.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-agent/agent_server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-agent/config/config.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-agent/server/agent.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/api/v1/handler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/api/v1/middleware.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/api/v1/registry.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/api_server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/config/config.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/config/server/options.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/config/wx/options.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/jwt/jwt.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/map/web_server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/models/remind.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/models/time.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/models/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/repositories/impl/remind.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/repositories/impl/time.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/repositories/impl/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/repositories/remind_repository.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/repositories/time_repository.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/repositories/user_repository.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/server/reminder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/server/web_server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/server/wx_app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/validator/registerValidation.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/reminder-apisvr/validator/validatorFunc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/database/database.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/database/options.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/email/email.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/email/options.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/rabbitmq/options.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/rabbitmq/rabbitmq.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/log/log.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/log/options.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/lunar/lunar.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/reminder/options.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/reminder/reminder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/response/code.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/response/msg.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/response/page_data.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/response/response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/signals/signal_posix.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/signals/signal_win.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/signals/signals.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/validator/validate.go" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
+  </component>
+  <component name="ProjectId" id="1kM1CuG3GgIQg54wy5etZAB5pph" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\goProject\src\reminder\test" />
+      <recent name="C:\goProject\src\reminder\internal\app\services" />
+      <recent name="C:\goProject\src\reminder\internal\main\services" />
+      <recent name="C:\goProject\src\reminder\pkg\log" />
+      <recent name="C:\goProject\src\reminder\config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.go build github.com/coder2m/reminder/cmd/app">
+    <configuration name="go build github.com/coder2m/reminder/cmd/app" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="reminder" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/cmd/app/main.go" />
+      <package value="github.com/coder2m/reminder/cmd/app" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build github.com/coder2m/reminder/cmd/main" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="reminder" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/cmd/main/main.go" />
+      <package value="github.com/coder2m/reminder/cmd/main" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build github.com/myxy99/reminder/cmd/reminder-svr" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="reminder" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/cmd/reminder-svr/main.go" />
+      <package value="github.com/myxy99/reminder/cmd/reminder-svr" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build github.com/coder2m/reminder/cmd/app" />
+        <item itemvalue="Go Build.go build github.com/coder2m/reminder/cmd/main" />
+        <item itemvalue="Go Build.go build github.com/myxy99/reminder/cmd/reminder-svr" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1614764379977">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1614764379977" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1614766441399">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1614766441399" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1614766441399">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1614766441399" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1614766441399">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1614766441399" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1614766441399">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1614766441399" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1614765035060">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1614765035060" />
+  </component>
+</project>

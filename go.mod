@@ -1,22 +1,18 @@
-module github.com/myxy99/reminder
+module github.com/coder2m/reminder
 
-go 1.14
+go 1.15
 
 require (
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/BurntSushi/toml v0.3.1
+	github.com/coder2m/component v0.5.0
 	github.com/gin-gonic/gin v1.6.3
-	github.com/go-playground/locales v0.13.0
-	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-playground/validator/v10 v10.4.1
-	github.com/go-sql-driver/mysql v1.5.0
-	github.com/jinzhu/gorm v1.9.16
-	github.com/lib/pq v1.1.1
-	github.com/mattn/go-sqlite3 v1.14.0
-	github.com/medivhzhan/weapp/v2 v2.2.4
-	github.com/robfig/cron/v3 v3.0.1
-	github.com/spf13/viper v1.7.1
-	github.com/streadway/amqp v1.0.0
-	go.uber.org/zap v1.16.0
-	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
-	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+	github.com/gorilla/websocket v1.4.2 // indirect
+	google.golang.org/grpc v1.27.0
+	gorm.io/gorm v1.20.9
+)
+
+replace (
+	github.com/coreos/bbolt v1.3.5 => go.etcd.io/bbolt v1.3.5
+	google.golang.org/grpc => google.golang.org/grpc v1.26.0
 )
