@@ -13,7 +13,6 @@ import (
 	"github.com/coder2m/component/xgovern"
 	"github.com/coder2m/component/xinvoker"
 	"github.com/coder2m/component/xmonitor"
-	"github.com/coder2m/component/xtrace"
 	"github.com/coder2m/reminder/internal/app/api/v1/registry"
 	myValidator "github.com/coder2m/reminder/internal/app/validator"
 	"net/http"
@@ -116,6 +115,6 @@ func (s *Server) govern() {
 		return
 	}
 	xmonitor.Run()
-	xtrace.Init("trace.jaeger")
+	//xtrace.Init("trace.jaeger")
 	go xgovern.Run()
 }

@@ -11,9 +11,9 @@ import (
 )
 
 type Res struct {
-	Code int         `json:"code"`
+	Code int         `json:"error"`
 	Msg  string      `json:"msg"`
-	Data interface{} `json:"data"`
+	Data interface{} `json:"data,omitempty"`
 }
 
 //R.Ok(c, "自定义msg",data)
